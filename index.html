@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help me out</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #bdbdbd; overflow: hidden; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+</style>
+</head>
+<body>
+<canvas id="rive"></canvas>
+<script src="rive.js"></script>
+<script>
+  rive.RuntimeLoader.setWasmUrl('rive.wasm');
+  const canvas = document.getElementById('rive');
+  const r = new rive.Rive({
+    src: 'help-me-out.riv',
+    canvas,
+    artboard: 'Main',
+    stateMachine: 'Main SM',
+    autoplay: true,
+    autoBind: true,
+    enableGPUCanvas: true,   // без этого скрипт со стеклом не рисуется — чёрный экран
+    layout: new rive.Layout({ fit: rive.Fit.Cover, alignment: rive.Alignment.Center }),
+    onLoad: () => r.resizeDrawingSurfaceToCanvas(),
+  });
+  addEventListener('resize', () => r.resizeDrawingSurfaceToCanvas());
+</script>
+</body>
+</html>
